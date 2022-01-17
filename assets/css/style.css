@@ -1,0 +1,85 @@
+@import url('https://fonts.googleapis.com/css2?family=Creepster&display=swap');
+
+body {
+    background: url(../image/mainBackground.jpg) no-repeat center center fixed; 
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+}
+.forestCol {
+    background: url(../image/forest.jpg) center center no-repeat;
+    background-size: cover;
+    border-radius: 10px;
+}
+.fightImage {
+    width: 100%;
+    height: 10em;
+}
+.swordLogo {
+    width: 100%;
+    height: auto;
+    color: white;
+}
+.battleIcon {
+    height: 3em;
+    width: auto;
+}
+.battleInfos {
+    font-size: 20px;
+}
+.damagesTaken {
+    position: absolute;
+    top: 22%;
+    left: 43%;
+    color: red;
+    font-size: 24px;
+    font-weight: 600;
+    font-weight: bold;
+}
+.mainTitle {
+    text-align: center;
+    font-family: 'Creepster', cursive;
+    color: red;
+}
+.subTitle {
+    text-align: center;
+    font-family: 'Creepster', cursive;
+    color: red;
+}
+.mainText {
+    text-align: center;
+    color: white;
+}
+.nextLevel {
+    width: 12em;
+    height: 3em;
+    border: none;
+    border-radius: 3px;
+    background-color: black;
+    color: red;
+    font-family: 'Creepster', cursive;
+}
+.nextLevel:hover {
+    background-color: white;
+}
+.winText {
+    font-size: 30px;
+    color: white;
+}
+.loseText {
+    font-size: 30px;
+    color: red;
+    font-family: 'Creepster', cursive;
+}
+.statTable {
+    border-collapse: collapse;
+    border: 1px solid;
+    text-align: center;
+    margin-right: auto;
+    margin-left: auto;
+    color: white;
+}
+.statTable td {
+    border: 1px solid;
+}
