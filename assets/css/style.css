@@ -83,3 +83,7 @@ body {
 .statTable td {
     border: 1px solid;
 }
+.choiceImage {
+    width: 100%;
+    height: auto;
+}

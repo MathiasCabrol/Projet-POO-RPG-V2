@@ -11,8 +11,8 @@ class Developpeur extends Hero {
     private const DEVELOPPEURWEAPON = 'ordinateur vieillissant';
     private const DEVELOPPEURSHIELD = 'armure de câbles RJ-45';
     private $healthInit;
-    private $damageInit;
-    private $shieldInit;
+    protected $specificRage = 40;
+    protected $multiplyAttack = 1;
 
 
     public function __construct () {
@@ -20,17 +20,6 @@ class Developpeur extends Hero {
         $this->setHealth(rand($this->getMinHealth(), $this->getMaxHealth()));
         $this->createHero();
         $this->healthInit = $this->health;
-        $this->damageInit = $this->getWeaponDamage();
-        $this->shieldInit = $this->getShieldValue();
-    }
-
-    public function updateRage() : void {
-        $this->setRage($this->getRage() + 40);
-    }
-
-
-    public function attack () {
-            return $this->getWeaponDamage();
     }
 
     public function castSpecial ($ennemyHealth) : bool {

@@ -9,7 +9,6 @@ class Paladin extends Hero {
     private const PALADINMAXHEALTH = 3000;
     private const PALADINWEAPON = 'espadon';
     private const PALADINSHIELD = 'armure de plaques';
-    private $damage;
 
 
     public function __construct () {
@@ -18,18 +17,6 @@ class Paladin extends Hero {
         $this->createHero();
     }
 
-    public function updateRage() : void {
-        $this->setRage($this->getRage() + 30);
-    }
-
-    public function attack () {
-        if($this->getRage() >= 100){
-            $this->setRage(0);
-            return $this->getWeaponDamage() * 3;
-        } else {
-            return $this->getWeaponDamage();
-        }
-    }
     
 
 }

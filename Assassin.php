@@ -9,6 +9,8 @@ class Assassin extends Hero {
     private const ASSASSINMAXHEALTH = 1300;
     private const ASSASSINWEAPON = 'dague empoisonnée';
     private const ASSASSINSHIELD = 'cape de voleur';
+    protected $specificRage = 20;
+    protected $multiplyAttack = 2;
 
 
     public function __construct () {
@@ -17,18 +19,5 @@ class Assassin extends Hero {
         $this->createHero();
     }
 
-    public function updateRage() : void {
-        $this->setRage($this->getRage() + 20);
-    }
-
-
-    public function attack () {
-        if($this->getRage() >= 100){
-            $this->setRage(0);
-            return $this->getWeaponDamage() * 2;
-        } else {
-            return $this->getWeaponDamage();
-        }
-    }
 
 }

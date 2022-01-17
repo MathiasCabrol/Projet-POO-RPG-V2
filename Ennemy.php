@@ -1,6 +1,6 @@
 <?php
 
-class Hero extends Character {
+class Ennemy extends Character {
     private $weapon;
     private $minWeaponDamage;
     private $maxWeaponDamage;
@@ -9,9 +9,7 @@ class Hero extends Character {
     private $minShieldValue;
     private $maxShieldValue;
     private $shieldValue;
-    //Valeurs par défaut de la rage et multiplicateur du paladin.
-    protected $specificRage = 30;
-    protected $multiplyAttack = 3;
+    protected $specificRage;
     
 
     public function __construct(int $minHealth, int $maxHealth, int $defaultRage, string $weaponSelected,  int $minWeaponDamage, int $maxWeaponDamage, string $shieldSelected, int $minShieldValue, int $maxShieldValue) {
@@ -96,21 +94,17 @@ class Hero extends Character {
         return $this->getHealth();
     }
 
+    public function attack () {
+        return $this->getWeaponDamage();
+    }
+
     public function updateRage() : void {
         $this->setRage($this->specificRage);
     }
 
-    public function attack () {
-            if($this->getRage() >= 100){
-                $this->setRage(0);
-                return $this->getWeaponDamage() * $this->multiplyAttack;
-            } else {
-                return $this->getWeaponDamage();
-            }
-    }
-
-    public function createHero () {
+    public function createEnnemy () {
         $this->setWeaponDamage(rand($this->getMinWeaponDamage(), $this->getMaxWeaponDamage()));
         $this->setShieldValue(rand($this->getMinShieldValue(), $this->getMaxShieldValue()));
+        $this->setHealth(rand($this->getMinHealth(), $this->getMaxHealth()));
     }
 }

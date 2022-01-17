@@ -1,5 +1,5 @@
 <?php
-class Revenant extends Hero {
+class Revenant extends Ennemy {
 
     private const REVENANTMINDAMAGE = 200;
     private const REVENANTMAXDAMAGE = 400;
@@ -9,28 +9,19 @@ class Revenant extends Hero {
     private const REVENANTMAXHEALTH = 1300;
     private const REVENANTWEAPON = 'ongles';
     private const REVENANTSHIELD = 'aucune armure';
+    protected $specificRage = 20;
 
 
     public function __construct () {
         parent::__construct(self::REVENANTMINHEALTH, self::REVENANTMAXHEALTH, 0, self::REVENANTWEAPON, self::REVENANTMINDAMAGE, self::REVENANTMAXDAMAGE, self::REVENANTSHIELD, self::REVENANTMINSHIELD, self::REVENANTMAXSHIELD);
-        $this->setHealth(rand($this->getMinHealth(), $this->getMaxHealth()));
-        $this->createHero();
+        $this->createEnnemy();
     }
-
-    public function updateRage() : void {
-        $this->setRage($this->getRage() + 20);
-    }
-
-
-    public function attack () {
+    
+    public function castSpecial () {
         if($this->getRage() >= 100){
             $this->setRage(0);
             return $this->getWeaponDamage() + 300;
-        } else {
-            return $this->getWeaponDamage();
         }
     }
-    
-
 }
 

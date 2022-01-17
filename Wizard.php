@@ -1,5 +1,5 @@
 <?php
-class Mage extends Hero {
+class Wizard extends Hero {
 
     private const MAGEMINDAMAGE = 600;
     private const MAGEMAXDAMAGE = 800;
@@ -9,6 +9,8 @@ class Mage extends Hero {
     private const MAGEMAXHEALTH = 1500;
     private const MAGEWEAPON = 'bâton des flammes froides';
     private const MAGESHIELD = 'robe noire';
+    protected $specificRage = 20;
+    protected $multiplyAttack = 4;
 
 
     public function __construct () {
@@ -17,18 +19,5 @@ class Mage extends Hero {
         $this->createHero();
     }
 
-    public function updateRage() : void {
-        $this->setRage($this->getRage() + 20);
-    }
-
-
-    public function attack () {
-        if($this->getRage() >= 100){
-            $this->setRage(0);
-            return $this->getWeaponDamage() * 4;
-        } else {
-            return $this->getWeaponDamage();
-        }
-    }
 
 }

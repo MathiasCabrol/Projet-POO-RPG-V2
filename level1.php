@@ -1,24 +1,14 @@
 <?php require 'Character.php' ?>
 <?php require 'Hero.php' ?>
+<?php require 'Ennemy.php' ?>
 <?php require 'Orc.php' ?>
 <?php require 'Paladin.php' ?>
-<?php require 'Mage.php' ?>
+<?php require 'Wizard.php' ?>
 <?php require 'Assassin.php' ?>
+<?php require 'Revenant.php' ?>
+<?php require 'UrukHaï.php' ?>
 
 <?php
-$Hero = new Hero(2000, 3000, 0, 'Main de la justice', 250, 400, 'Armure Ygdrasil', 600, 800);
-$Orc = new Orc(500, 1000, 0, 600, 800);
-$Paladin = new Paladin;
-$Mage = new Mage;
-$Assassin = new Assassin;
-var_dump($Assassin);
-$heroDefaultHealth = $Hero->getHealth();
-$heroHealth = $Hero->getHealth();
-$weaponDamage = $Hero->getWeaponDamage();
-$rounds = 0;
-
-$orcHealth = $Orc->getHealth();
-$orcDefaultHealth = $Orc->getHealth();
 
 ?>
 
@@ -39,63 +29,8 @@ $orcDefaultHealth = $Orc->getHealth();
     <h2 class="subTitle mb-5">Niveau 1</h2>
     <div class="container">
         <div class="row justify-content-center">
-            <div class="col-12 col-md-4 text-center">
-                <table class="statTable">
-                    <thead>
-                        <tr>
-                            <th colspan="2">Statistiques du héro</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>Santé</td>
-                            <td><?= $Hero->getHealth() ?></td>
-                        </tr>
-                        <tr>
-                            <td>Rage</td>
-                            <td><?= $Hero->getRage() ?></td>
-                        </tr>
-                        <tr>
-                            <td>Arme équipée</td>
-                            <td><?= $Hero->getWeapon() ?></td>
-                        </tr>
-                        <tr>
-                            <td>Dégats</td>
-                            <td><?= $Hero->getWeaponDamage() ?></td>
-                        </tr>
-                        <tr>
-                            <td>Armure équipée</td>
-                            <td><?= $Hero->getShield() ?></td>
-                        </tr>
-                        <tr>
-                            <td>Points d'armure</td>
-                            <td><?= $Hero->getShieldValue() ?></td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-            <div class="col-12 col-md-4 align-self-center">
-                <table class="statTable">
-                    <thead>
-                        <tr>
-                            <th colspan="2">Statistiques de l'orc</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>Santé</td>
-                            <td><?= $Orc->getHealth() ?></td>
-                        </tr>
-                        <tr>
-                            <td>Rage</td>
-                            <td><?= $Orc->getRage() ?></td>
-                        </tr>
-                        <tr>
-                            <td>Dégats</td>
-                            <td><?= $Orc->getMinDamage() . ', ' . $Orc->getMaxDamage() ?></td>
-                        </tr>
-                    </tbody>
-                </table>
+            <div class="col-12 col-md-3 text-center">
+                <img class="choiceImage" src="assets/image/paladin.webp" alt="image de paladin">
             </div>
         </div>
     </div>
