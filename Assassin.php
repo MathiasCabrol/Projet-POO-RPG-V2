@@ -19,5 +19,9 @@ class Assassin extends Hero {
         $this->createHero();
     }
 
+    public function image () {
+        return 'assets/image/assassin.jpg';
+    }
+
 
 }

@@ -26,7 +26,9 @@ class Urukhai extends Ennemy {
         }
     }
 
-    
+    public function image () {
+        return 'assets/image/urukhai.jpeg';
+    }
 
 }
 

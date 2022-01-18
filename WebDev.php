@@ -1,5 +1,5 @@
 <?php
-class Developpeur extends Hero {
+class WebDev extends Hero {
 
 
     private const DEVELOPPEURMINDAMAGE = 400;
@@ -29,6 +29,10 @@ class Developpeur extends Hero {
             return true;
         }
         return false;
+    }
+
+    public function image () {
+        return 'assets/image/dev.png';
     }
 }
 

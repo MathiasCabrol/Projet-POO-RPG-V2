@@ -85,5 +85,18 @@ body {
 }
 .choiceImage {
     width: 100%;
-    height: auto;
+    height: 18em;
+    border-radius: 10px;
 }
+
+.choiceCol {
+    position: relative;
+}
+
+.classChoice {
+    position: absolute;
+    top: 90%;
+    left: 45%;
+    transform: scale(2);
+}
+

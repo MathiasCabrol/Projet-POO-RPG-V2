@@ -26,7 +26,9 @@ class Bug extends Ennemy {
         }
     }
 
-    
+    public function image () {
+        return 'assets/image/bug.jpg';
+    }
 
 }
 

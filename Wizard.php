@@ -19,5 +19,7 @@ class Wizard extends Hero {
         $this->createHero();
     }
 
-
+    public function image () {
+        return 'assets/image/mage.webp';
+    }
 }

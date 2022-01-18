@@ -23,5 +23,9 @@ class Revenant extends Ennemy {
             return $this->getWeaponDamage() + 300;
         }
     }
+
+    public function image () {
+        return 'assets/image/revenant.jpg';
+    }
 }
 

@@ -26,7 +26,9 @@ class Coronuviras extends Ennemy {
         }
     }
 
-    
+    public function image () {
+        return 'assets/image/virus.webp';
+    }
 
 }
 

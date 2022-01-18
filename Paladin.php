@@ -17,6 +17,10 @@ class Paladin extends Hero {
         $this->createHero();
     }
 
+    public function image () {
+        return 'assets/image/paladin.webp';
+    }
+
     
 
 }
