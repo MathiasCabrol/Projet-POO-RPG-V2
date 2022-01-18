@@ -18,17 +18,7 @@ class WebDev extends Hero {
     public function __construct () {
         parent::__construct(self::DEVELOPPEURMINHEALTH, self::DEVELOPPEURMAXHEALTH, 0, self::DEVELOPPEURWEAPON, self::DEVELOPPEURMINDAMAGE, self::DEVELOPPEURMAXDAMAGE, self::DEVELOPPEURSHIELD, self::DEVELOPPEURMINSHIELD, self::DEVELOPPEURMAXSHIELD);
         $this->setHealth(rand($this->getMinHealth(), $this->getMaxHealth()));
-        $this->createHero();
-        $this->healthInit = $this->health;
-    }
-
-    public function castSpecial ($ennemyHealth) : bool {
-        if($this->getRage() >= 0 && $this->getHealth() < $ennemyHealth){
-            $this->setHealth($this->healthInit);
-            $this->setRage(0);
-            return true;
-        }
-        return false;
+        $this->setShieldValue(rand($this->getMinShieldValue(), $this->getMaxShieldValue()));
     }
 
     public function image () {

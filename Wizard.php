@@ -16,7 +16,7 @@ class Wizard extends Hero {
     public function __construct () {
         parent::__construct(self::MAGEMINHEALTH, self::MAGEMAXHEALTH, 0, self::MAGEWEAPON, self::MAGEMINDAMAGE, self::MAGEMAXDAMAGE, self::MAGESHIELD, self::MAGEMINSHIELD, self::MAGEMAXSHIELD);
         $this->setHealth(rand($this->getMinHealth(), $this->getMaxHealth()));
-        $this->createHero();
+        $this->setShieldValue(rand($this->getMinShieldValue(), $this->getMaxShieldValue()));
     }
 
     public function image () {

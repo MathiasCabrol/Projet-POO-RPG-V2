@@ -16,7 +16,7 @@ class Assassin extends Hero {
     public function __construct () {
         parent::__construct(self::ASSASSINMINHEALTH, self::ASSASSINMAXHEALTH, 0, self::ASSASSINWEAPON, self::ASSASSINMINDAMAGE, self::ASSASSINMAXDAMAGE, self::ASSASSINSHIELD, self::ASSASSINMINSHIELD, self::ASSASSINMAXSHIELD);
         $this->setHealth(rand($this->getMinHealth(), $this->getMaxHealth()));
-        $this->createHero();
+        $this->setShieldValue(rand($this->getMinShieldValue(), $this->getMaxShieldValue()));
     }
 
     public function image () {

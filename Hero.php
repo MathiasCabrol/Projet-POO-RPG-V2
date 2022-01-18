@@ -24,10 +24,6 @@ class Hero extends Character {
         $this->setMaxShieldValue($maxShieldValue);
     }
 
-    public function showHeroInfos () {
-        return 'Le héro avec la valeur en santé de ' . $this->getHealth() . ' et en rage de ' . $this->getRage() . ' équipé de l\'arme ' . $this->weapon . ' avec des dégats équivalents à ' . $this->weaponDamage . ' et l\'armure ' . $this->shield . ' avec des points d\'armure de ' . $this->shieldValue;
-    }
-
     public function getWeapon () {
         return $this->weapon;
     }
@@ -88,29 +84,29 @@ class Hero extends Character {
         $this->shieldValue = $newShieldValue;
     }
     
-    public function attacked($damage) {
-        $this->setHealth($this->getHealth() - ($damage - $this->shieldValue));
-        if($this->health < 0){
+    public function attack () {
+        if($this->getRage() < 100){
+            $damageInflicted =  $this->getWeaponDamage();
+        } else {
+            $damageInflicted = ($this->getWeaponDamage() * $this->multiplyAttack);
+            $this->setRage(0);
+        }
+        return $damageInflicted;
+}
+
+    public function attacked ($damage) {
+        $this->setHealth($this->getHealth() - ($damage - $this->getShieldValue()));
+        if($this->getHealth() < 0){
             $this->setHealth(0);
         }
         return $this->getHealth();
     }
 
     public function updateRage() : void {
-        $this->setRage($this->specificRage);
+        $this->setRage($this->getRage() + $this->specificRage);
     }
 
-    public function attack () {
-            if($this->getRage() >= 100){
-                $this->setRage(0);
-                return $this->getWeaponDamage() * $this->multiplyAttack;
-            } else {
-                return $this->getWeaponDamage();
-            }
-    }
-
-    public function createHero () {
+    public function createAttack () {
         $this->setWeaponDamage(rand($this->getMinWeaponDamage(), $this->getMaxWeaponDamage()));
-        $this->setShieldValue(rand($this->getMinShieldValue(), $this->getMaxShieldValue()));
     }
 }

@@ -10,18 +10,13 @@ class Revenant extends Ennemy {
     private const REVENANTWEAPON = 'ongles';
     private const REVENANTSHIELD = 'aucune armure';
     protected $specificRage = 20;
+    protected $addAttack = 300;
 
 
     public function __construct () {
         parent::__construct(self::REVENANTMINHEALTH, self::REVENANTMAXHEALTH, 0, self::REVENANTWEAPON, self::REVENANTMINDAMAGE, self::REVENANTMAXDAMAGE, self::REVENANTSHIELD, self::REVENANTMINSHIELD, self::REVENANTMAXSHIELD);
-        $this->createEnnemy();
-    }
-    
-    public function castSpecial () {
-        if($this->getRage() >= 100){
-            $this->setRage(0);
-            return $this->getWeaponDamage() + 300;
-        }
+        $this->setHealth(rand($this->getMinHealth(), $this->getMaxHealth()));
+        $this->setShieldValue(rand($this->getMinShieldValue(), $this->getMaxShieldValue()));
     }
 
     public function image () {

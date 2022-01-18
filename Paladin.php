@@ -14,7 +14,7 @@ class Paladin extends Hero {
     public function __construct () {
         parent::__construct(self::PALADINMINHEALTH, self::PALADINMAXHEALTH, 0, self::PALADINWEAPON, self::PALADINMINDAMAGE, self::PALADINMAXDAMAGE, self::PALADINSHIELD, self::PALADINMINSHIELD, self::PALADINMAXSHIELD);
         $this->setHealth(rand($this->getMinHealth(), $this->getMaxHealth()));
-        $this->createHero();
+        $this->setShieldValue(rand($this->getMinShieldValue(), $this->getMaxShieldValue()));
     }
 
     public function image () {

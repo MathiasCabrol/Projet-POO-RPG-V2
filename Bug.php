@@ -10,20 +10,13 @@ class Bug extends Ennemy {
     private const BUGWEAPON = 'AirèmeTiréAireÉfÉToile';
     private const BUGSHIELD = 'armure d\'erreur système';
     protected $specificRage = 5;
+    protected $addAttack = 1000000;
 
 
     public function __construct () {
         parent::__construct(self::BUGMINHEALTH, self::BUGMAXHEALTH, 0, self::BUGWEAPON, self::BUGMINDAMAGE, self::BUGMAXDAMAGE, self::BUGSHIELD, self::BUGMINSHIELD, self::BUGMAXSHIELD);
-        $this->createEnnemy();
-    }
-
-    public function castSpecial () {
-        if($this->getRage() >= 100){
-            $this->setRage(0);
-            return true;
-        } else {
-            return false;
-        }
+        $this->setHealth(rand($this->getMinHealth(), $this->getMaxHealth()));
+        $this->setShieldValue(rand($this->getMinShieldValue(), $this->getMaxShieldValue()));
     }
 
     public function image () {

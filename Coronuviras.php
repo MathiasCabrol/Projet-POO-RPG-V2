@@ -10,20 +10,13 @@ class Coronuviras extends Ennemy {
     private const CORONUVIRASWEAPON = 'masse';
     private const CORONUVIRASSHIELD = 'armure en peau de chauve-souris';
     protected $specificRage = 20;
+    protected $addAttack = 200;
 
 
     public function __construct () {
         parent::__construct(self::CORONUVIRASMINHEALTH, self::CORONUVIRASMAXHEALTH, 0, self::CORONUVIRASWEAPON, self::CORONUVIRASMINDAMAGE, self::CORONUVIRASMAXDAMAGE, self::CORONUVIRASSHIELD, self::CORONUVIRASMINSHIELD, self::CORONUVIRASMAXSHIELD);
-        $this->createEnnemy();
-    }
-
-    public function castSpecial () {
-        if($this->getRage() >= 100){
-            $this->setRage(0);
-            return true;
-        } else {
-            return false;
-        }
+        $this->setHealth(rand($this->getMinHealth(), $this->getMaxHealth()));
+        $this->setShieldValue(rand($this->getMinShieldValue(), $this->getMaxShieldValue()));
     }
 
     public function image () {

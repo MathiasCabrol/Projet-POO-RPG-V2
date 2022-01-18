@@ -10,6 +10,7 @@ class Ennemy extends Character {
     private $maxShieldValue;
     private $shieldValue;
     protected $specificRage;
+    protected $addAttack;
     
 
     public function __construct(int $minHealth, int $maxHealth, int $defaultRage, string $weaponSelected,  int $minWeaponDamage, int $maxWeaponDamage, string $shieldSelected, int $minShieldValue, int $maxShieldValue) {
@@ -87,24 +88,24 @@ class Ennemy extends Character {
     }
     
     public function attacked($damage) {
-        $this->setHealth($this->getHealth() - ($damage - $this->shieldValue));
-        if($this->health < 0){
-            $this->setHealth(0);
-        }
+        $this->setHealth($this->getHealth() - ($damage - $this->getShieldValue()));
         return $this->getHealth();
     }
 
     public function attack () {
-        return $this->getWeaponDamage();
-    }
+        if($this->getRage() < 100){
+            return $this->getWeaponDamage();
+        } else {
+            $this->setRage(0);
+            return $this->getWeaponDamage() + $this->addAttack;
+        }
+}
 
     public function updateRage() : void {
-        $this->setRage($this->specificRage);
+        $this->setRage($this->getRage() + $this->specificRage);
     }
 
-    public function createEnnemy () {
+    public function createAttack () {
         $this->setWeaponDamage(rand($this->getMinWeaponDamage(), $this->getMaxWeaponDamage()));
-        $this->setShieldValue(rand($this->getMinShieldValue(), $this->getMaxShieldValue()));
-        $this->setHealth(rand($this->getMinHealth(), $this->getMaxHealth()));
     }
 }

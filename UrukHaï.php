@@ -10,11 +10,13 @@ class Urukhai extends Ennemy {
     private const URUKHAIWEAPON = 'fléau';
     private const URUKHAISHIELD = 'armure de piques';
     protected $specificRage = 20;
+    protected $addAttack = 900;
 
 
     public function __construct () {
         parent::__construct(self::URUKHAIMINHEALTH, self::URUKHAIMAXHEALTH, 0, self::URUKHAIWEAPON, self::URUKHAIMINDAMAGE, self::URUKHAIMAXDAMAGE, self::URUKHAISHIELD, self::URUKHAIMINSHIELD, self::URUKHAIMAXSHIELD);
-        $this->createEnnemy();
+        $this->setHealth(rand($this->getMinHealth(), $this->getMaxHealth()));
+        $this->setShieldValue(rand($this->getMinShieldValue(), $this->getMaxShieldValue()));
     }
 
     public function castSpecial () {

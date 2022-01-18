@@ -1,7 +1,6 @@
 <?php require 'Character.php' ?>
 <?php require 'Hero.php' ?>
 <?php require 'Ennemy.php' ?>
-<?php require 'Orc.php' ?>
 <?php require 'Paladin.php' ?>
 <?php require 'Wizard.php' ?>
 <?php require 'Assassin.php' ?>
@@ -54,11 +53,7 @@ if(isset($choice)){
             $Ennemy = new Bug();
             break;
     }
-    var_dump($Ennemy);
-    var_dump($Hero);
 }
-
-
 
 ?>
 <!DOCTYPE html>
@@ -116,54 +111,64 @@ if(isset($choice)){
     <!-- Starting else condition for isset submit post button -->
     <?php } else { ?>
 
-    <?php while ($heroHealth > 0 && $orcHealth > 0) {
-        $Orc->attack();
+    <?php 
+    
+    $heroHealth = $Hero->getHealth();
+    $heroDefaultHealth = $Hero->getHealth();
+    $ennemyHealth = $Ennemy->getHealth();
+    $ennemyDefaultHealth = $Ennemy->getHealth();
+    $rounds = 0;
+    
+    while ($heroHealth > 0 && $ennemyHealth > 0) {
+        $heroPreviousHealth = $Hero->getHealth();
+        $ennemyPreviousHealth = $Ennemy->getHealth();
+        $Hero->createAttack();
+        $Ennemy->createAttack();
+        $Ennemy->updateRage();
         $Hero->updateRage();
-        $actualRage = $Hero->getRage();
-        if ($actualRage > 100) {
-            $actualOrcHealth = $Orc->getHealth() - $weaponDamage;
-            $Orc->setHealth($actualOrcHealth);
-            $orcHealth = $actualOrcHealth;
-            $actualRage = 0;
-            $Hero->setRage($actualRage);
-        }
-        $actualHealth = $Hero->attacked($Orc->getDamage());
-        $Hero->setHealth($actualHealth);
-        $heroHealth = $Hero->getHealth();
+        $ennemyHealth = $Ennemy->attacked($Hero->attack());
+        $Ennemy->setHealth($ennemyHealth);
+        $heroHealth = $Hero->attacked($Ennemy->attack());
+        $Hero->setHealth($heroHealth);
         $rounds++;
-        $heroLifeBarStatus = 100 * $heroHealth / $heroDefaultHealth;
-        $heroRageBarStatus = 100 * $actualRage / 100;
-        $orcLifeBarStatus = 100 * $Orc->getHealth() / $orcDefaultHealth;
+        $heroLifeBarStatus = 100 * $Hero->getHealth() / $heroDefaultHealth;
+        $heroRageBarStatus = 100 * $Hero->getRage() / 100;
+        $ennemyLifeBarStatus = 100 * $Ennemy->getHealth() / $ennemyDefaultHealth;
+        $ennemyRageBarStatus = 100 * $Ennemy->getRage() / 100;
+        var_dump($Hero->attack());
     ?>
         <div class="container-fluid">
             <div class="row justify-content-center">
                 <div class="col-12 col-md-6 my-4 forestCol text-white">
-                    <h2 class="my-3">Tour <?= $rounds ?></h2>
+                    <h2 class="my-3 text-center">Tour <?= $rounds ?></h2>
                     <div class="row">
-                        <div class="col-5 heroCol">
-                            <img class="fightImage" src="assets/image/hero.jpg" alt="Image du héro">
+                        <div class="col-5">
+                            <img class="fightImage" src="<?= $Hero->image() ?>" alt="Image du héro">
                             <div class="progress my-2 lifeBar">
                                 <div class="progress-bar bg-danger" role="progressbar" style="width: <?= $heroLifeBarStatus . '%' ?>" aria-valuemin="0" aria-valuemax="100"><?= $heroHealth . '/' . $heroDefaultHealth ?></div>
                             </div>
                             <div class="progress my-2 rageBar">
-                                <div class="progress-bar bg-warning" role="progressbar" style="width: <?= $heroRageBarStatus . '%' ?>" aria-valuemin="0" aria-valuemax="100"><?= $actualRage . '/' . 100 ?></div>
+                                <div class="progress-bar bg-warning" role="progressbar" style="width: <?= $heroRageBarStatus . '%' ?>" aria-valuemin="0" aria-valuemax="100"><?= $Hero->getRage() . '/' . 100 ?></div>
                             </div>
                             <p class="mt-4"><img class="battleIcon" src="assets/image/shield.svg"> <span class="battleInfos"><?= $Hero->getShieldValue() ?></span></p>
-                            <p class="damagesTaken">- <?= $Orc->getDamage() - $Hero->getShieldValue() ?></p>
+                            <p class="mt-2"><img class="battleIcon" src="assets/image/singleSword.svg"> <span class="battleInfos"> <?= $Hero->getWeaponDamage() ?> </span></p>
+                            <p class="damagesTaken">- <?= $heroPreviousHealth - $heroHealth ?></p>
                         </div>
                         <div class="col-2 align-self-center">
                             <img class="swordLogo" src="assets/image/swords.svg">
                         </div>
-                        <div class="col-5 orcCol">
-                            <img class="fightImage" src="assets/image/orc.jpg" alt="Image de l'orc">
+                        <div class="col-5">
+                            <img class="fightImage" src="<?= $Ennemy->image() ?>" alt="Image de l'ennemi">
                             <div class="progress my-2">
-                                <div class="progress-bar bg-danger" role="progressbar" style="width: <?= $orcLifeBarStatus . '%' ?>" aria-valuemin="0" aria-valuemax="100"><?= $orcHealth . '/' . $orcDefaultHealth ?></div>
+                                <div class="progress-bar bg-danger" role="progressbar" style="width: <?= $ennemyLifeBarStatus . '%' ?>" aria-valuemin="0" aria-valuemax="100"><?= $ennemyHealth . '/' . $ennemyDefaultHealth ?></div>
                             </div>
-                            <p class="mt-5"><img class="battleIcon" src="assets/image/singleSword.svg"> <span class="battleInfos"> <?= $Orc->getDamage() ?> </span></p>
-                            <?php if ($actualRage == 0) {
-                            ?>
-                                <p class="damagesTaken">- <?= $weaponDamage ?></p>
-                            <?php } ?>
+                            <div class="progress my-2 rageBar">
+                                <div class="progress-bar bg-warning" role="progressbar" style="width: <?= $ennemyRageBarStatus . '%' ?>" aria-valuemin="0" aria-valuemax="100"><?= $Ennemy->getRage() . '/' . 100 ?></div>
+                            </div>
+                            <p class="mt-4"><img class="battleIcon" src="assets/image/shield.svg"> <span class="battleInfos"><?= $Ennemy->getShieldValue() ?></span></p>
+                            <p class="mt-2"><img class="battleIcon" src="assets/image/singleSword.svg"> <span class="battleInfos"> <?= $Ennemy->getWeaponDamage() ?> </span></p>
+                            <p class="damagesTaken">- <?= $ennemyPreviousHealth -  $ennemyHealth ?></p>
+ 
                         </div>
                     </div>
                 </div>
@@ -175,7 +180,7 @@ if(isset($choice)){
     <div class="container">
         <div class="row justify-content-center mb-4">
             <div class="col-12 col-md-6">
-                <?php if ($Orc->getHealth() <= 0) { ?>
+                <?php if ($Ennemy->getHealth() <= 0) { ?>
                     <p class="winText">Victoire !</p>
                     <a href="level2.php"><button class="nextLevel">Niveau Suivant</button></a>
                 <?php } else { ?>
@@ -185,7 +190,6 @@ if(isset($choice)){
             </div>
         </div>
     </div>
-    <!-- Ending else condition generating html code -->
     <?php } ?>
 </body>
     <!-- <script src="assets/js/autoscroll.js"></script> -->
