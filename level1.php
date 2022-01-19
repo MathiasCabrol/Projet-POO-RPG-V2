@@ -12,6 +12,8 @@
 
 <?php 
 
+session_start();
+
 $errorList = [];
 
 if(isset($_POST['classConfirm'])){
@@ -71,7 +73,7 @@ if(isset($choice)){
 <body>
     <h1 class="mainTitle mt-4 mb-2">Le donjon de Mordrynn</h1>
     <h2 class="subTitle mb-5">Niveau 1</h2>
-    <?php if(!isset($_POST['classConfirm'])){
+    <?php if(!isset($_POST['classConfirm']) && empty($_SESSION['round'])){
         ?>
     <div class="container">
     <form method="post" action="#">
@@ -112,14 +114,28 @@ if(isset($choice)){
     <?php } else { ?>
 
     <?php 
-    
+
+if(!isset($_SESSION['round'])){
+    $rounds = 1;
+    $_SESSION['heroMaxHealth'] = $Hero->getHealth();
+    $_SESSION['ennemyMaxHealth'] = $Ennemy->getHealth();
+    $heroDefaultHealth = $_SESSION['heroMaxHealth'];
+    $ennemyDefaultHealth = $_SESSION['ennemyMaxHealth'];
+} else {
+    $rounds = $_SESSION['round'];
+    $heroDefaultHealth = $_SESSION['heroMaxHealth'];
+    $ennemyDefaultHealth = $_SESSION['ennemyMaxHealth'];
+}
+
+if($rounds >= 2){
+    $Hero = unserialize($_SESSION['hero']);
+    $Ennemy = unserialize($_SESSION['ennemy']);
+}
+
     $heroHealth = $Hero->getHealth();
-    $heroDefaultHealth = $Hero->getHealth();
     $ennemyHealth = $Ennemy->getHealth();
-    $ennemyDefaultHealth = $Ennemy->getHealth();
-    $rounds = 0;
     
-    while ($heroHealth > 0 && $ennemyHealth > 0) {
+    if  ($heroHealth > 0 && $ennemyHealth > 0) {
         $heroPreviousHealth = $Hero->getHealth();
         $ennemyPreviousHealth = $Ennemy->getHealth();
         $Hero->createAttack();
@@ -130,12 +146,10 @@ if(isset($choice)){
         $Ennemy->setHealth($ennemyHealth);
         $heroHealth = $Hero->attacked($Ennemy->attack());
         $Hero->setHealth($heroHealth);
-        $rounds++;
         $heroLifeBarStatus = 100 * $Hero->getHealth() / $heroDefaultHealth;
         $heroRageBarStatus = 100 * $Hero->getRage() / 100;
         $ennemyLifeBarStatus = 100 * $Ennemy->getHealth() / $ennemyDefaultHealth;
         $ennemyRageBarStatus = 100 * $Ennemy->getRage() / 100;
-        var_dump($Hero->attack());
     ?>
         <div class="container-fluid">
             <div class="row justify-content-center">
@@ -150,8 +164,8 @@ if(isset($choice)){
                             <div class="progress my-2 rageBar">
                                 <div class="progress-bar bg-warning" role="progressbar" style="width: <?= $heroRageBarStatus . '%' ?>" aria-valuemin="0" aria-valuemax="100"><?= $Hero->getRage() . '/' . 100 ?></div>
                             </div>
-                            <p class="mt-4"><img class="battleIcon" src="assets/image/shield.svg"> <span class="battleInfos"><?= $Hero->getShieldValue() ?></span></p>
-                            <p class="mt-2"><img class="battleIcon" src="assets/image/singleSword.svg"> <span class="battleInfos"> <?= $Hero->getWeaponDamage() ?> </span></p>
+                            <p class="mt-4 text-center"><img class="battleIcon" src="assets/image/shield.svg"> <span class="battleInfos"><?= $Hero->getShieldValue() ?></span></p>
+                            <p class="mt-2 text-center"><img class="battleIcon" src="assets/image/singleSword.svg"> <span class="battleInfos"> <?= $Hero->getWeaponDamage() ?> </span></p>
                             <p class="damagesTaken">- <?= $heroPreviousHealth - $heroHealth ?></p>
                         </div>
                         <div class="col-2 align-self-center">
@@ -165,25 +179,37 @@ if(isset($choice)){
                             <div class="progress my-2 rageBar">
                                 <div class="progress-bar bg-warning" role="progressbar" style="width: <?= $ennemyRageBarStatus . '%' ?>" aria-valuemin="0" aria-valuemax="100"><?= $Ennemy->getRage() . '/' . 100 ?></div>
                             </div>
-                            <p class="mt-4"><img class="battleIcon" src="assets/image/shield.svg"> <span class="battleInfos"><?= $Ennemy->getShieldValue() ?></span></p>
-                            <p class="mt-2"><img class="battleIcon" src="assets/image/singleSword.svg"> <span class="battleInfos"> <?= $Ennemy->getWeaponDamage() ?> </span></p>
-                            <p class="damagesTaken">- <?= $ennemyPreviousHealth -  $ennemyHealth ?></p>
+                            <p class="mt-4 text-center"><img class="battleIcon" src="assets/image/shield.svg"> <span class="battleInfos"><?= $Ennemy->getShieldValue() ?></span></p>
+                            <p class="mt-2 text-center"><img class="battleIcon" src="assets/image/singleSword.svg"> <span class="battleInfos"> <?= $Ennemy->getWeaponDamage() ?> </span></p>
+                            <p class="damagesTaken">- <?= $ennemyPreviousHealth -  $ennemyHealth  ?></p>
  
                         </div>
                     </div>
                 </div>
+                <?php if($heroHealth > 0 && $ennemyHealth > 0){ ?>
+                <div class="col-12 text-center">
+                    <?php $rounds++;
+    $_SESSION['round'] = $rounds; ?>
+                
+                <a href="<?= 'level1.php?sessionRound=' . $rounds ?>"><button class="nextLevel">Prochain round</button></a>
+                </div> 
+                <?php } ?>
             </div>
         </div>
     <?php
+    $_SESSION['hero'] = serialize($Hero);
+    $_SESSION['ennemy'] = serialize($Ennemy);
     }
     ?>
     <div class="container">
         <div class="row justify-content-center mb-4">
-            <div class="col-12 col-md-6">
-                <?php if ($Ennemy->getHealth() <= 0) { ?>
+            <div class="col-12 col-md-6 text-center">
+                <?php if ($Ennemy->getHealth() <= 0) { 
+                    session_unset(); ?>
                     <p class="winText">Victoire !</p>
-                    <a href="level2.php"><button class="nextLevel">Niveau Suivant</button></a>
-                <?php } else { ?>
+                    <a href="level1.php"><button class="nextLevel">Recomencer</button></a>
+                <?php } else if ($Hero->getHealth() <= 0) { 
+                    session_unset(); ?>
                     <p class="loseText">Défaite...</p>
                     <a href="level1.php"><button class="nextLevel">Recomencer</button></a>
                 <?php } ?>

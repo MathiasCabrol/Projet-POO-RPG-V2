@@ -88,7 +88,14 @@ class Ennemy extends Character {
     }
     
     public function attacked($damage) {
-        $this->setHealth($this->getHealth() - ($damage - $this->getShieldValue()));
+        $damageTaken = ($damage - $this->getShieldValue());
+        if($damageTaken < 0){
+            $damageTaken = 0;
+        }
+        $this->setHealth($this->getHealth() - $damageTaken);
+        if($this->getHealth() < 0){
+            $this->setHealth(0);
+        }
         return $this->getHealth();
     }
 
