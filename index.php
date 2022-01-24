@@ -1,14 +1,14 @@
-<?php require 'Character.php' ?>
-<?php require 'Hero.php' ?>
-<?php require 'Ennemy.php' ?>
-<?php require 'Paladin.php' ?>
-<?php require 'Wizard.php' ?>
-<?php require 'Assassin.php' ?>
-<?php require 'WebDev.php' ?>
-<?php require 'Revenant.php' ?>
-<?php require 'UrukHaï.php' ?>
-<?php require 'Coronuviras.php' ?>
-<?php require 'Bug.php' ?>
+<?php require 'classes/Character.php' ?>
+<?php require 'classes/Hero.php' ?>
+<?php require 'classes/Ennemy.php' ?>
+<?php require 'classes/Paladin.php' ?>
+<?php require 'classes/Wizard.php' ?>
+<?php require 'classes/Assassin.php' ?>
+<?php require 'classes/WebDev.php' ?>
+<?php require 'classes/Revenant.php' ?>
+<?php require 'classes/UrukHaï.php' ?>
+<?php require 'classes/Coronuviras.php' ?>
+<?php require 'classes/Bug.php' ?>
 
 <?php 
 
@@ -191,7 +191,7 @@ if($rounds >= 2){
                     <?php $rounds++;
     $_SESSION['round'] = $rounds; ?>
                 
-                <a href="<?= 'level1.php?sessionRound=' . $rounds ?>"><button class="nextLevel">Prochain round</button></a>
+                <a href="<?= 'index.php?sessionRound=' . $rounds ?>"><button class="nextLevel">Prochain round</button></a>
                 </div> 
                 <?php } ?>
             </div>
@@ -207,11 +207,11 @@ if($rounds >= 2){
                 <?php if ($Ennemy->getHealth() <= 0) { 
                     session_unset(); ?>
                     <p class="winText">Victoire !</p>
-                    <a href="level1.php"><button class="nextLevel">Recomencer</button></a>
+                    <a href="index.php"><button class="nextLevel">Recomencer</button></a>
                 <?php } else if ($Hero->getHealth() <= 0) { 
                     session_unset(); ?>
                     <p class="loseText">Défaite...</p>
-                    <a href="level1.php"><button class="nextLevel">Recomencer</button></a>
+                    <a href="index.php"><button class="nextLevel">Recomencer</button></a>
                 <?php } ?>
             </div>
         </div>
