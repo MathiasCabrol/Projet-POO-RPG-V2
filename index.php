@@ -72,7 +72,6 @@ if(isset($choice)){
 
 <body>
     <h1 class="mainTitle mt-4 mb-2">Le donjon de Mordrynn</h1>
-    <h2 class="subTitle mb-5">Niveau 1</h2>
     <?php if(!isset($_POST['classConfirm']) && empty($_SESSION['round'])){
         ?>
     <div class="container">
